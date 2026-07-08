@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArcaneCrypto Dashboard</title>
+    <style>
+        /* Zaimportuj style.css bezpośrednio */
+        @import url('style.css');
+    </style>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Ekran logowania -->
+    <div id="login-screen" class="screen active">
+        <div class="login-card glass">
+            <div class="logo">
+                <span class="icon">⚡</span>
+                <h1>ArcaneCrypto</h1>
+            </div>
+            <p class="subtitle">Wprowadź kod z gry (/is crypto panel)</p>
+            
+            <form id="login-form">
+                <div class="input-group">
+                    <input type="text" id="login-code" maxlength="6" placeholder="000000" autocomplete="off" required>
+                </div>
+                <button type="submit" class="btn primary-btn">Zaloguj się</button>
+            </form>
+            <div id="login-error" class="error-msg"></div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard-screen" class="screen">
+        <nav class="sidebar glass-panel">
+            <div class="logo-small">
+                <span class="icon">⚡</span>
+                <h2>Arcane</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#" id="nav-overview">Przegląd</a></li>
+                <li><a href="#" id="nav-cards">Moje Karty</a></li>
+                <li><a href="#" id="nav-market">Rynek (Top)</a></li>
+            </ul>
+            <div class="user-profile">
+                <div class="avatar" id="user-avatar"></div>
+                <div class="user-info">
+                    <span class="name" id="user-name">Gracz</span>
+                    <button id="logout-btn" class="btn text-btn">Wyloguj</button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="dashboard-content">
+            <header>
+                <div class="header-title">
+                    <h1>Przegląd Portfela</h1>
+                    <p>Witaj powrotem, sprawdź swoje zarobki z kopania.</p>
+                </div>
+                <div class="header-balance glass-card">
+                    <span class="label">Saldo Monet</span>
+                    <h2 id="wallet-balance">0.00</h2>
+                </div>
+            </header>
+
+            <section class="stats-grid">
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">⛏️</div>
+                    <div class="stat-details">
+                        <span class="label">Twoja Moc Kopania</span>
+                        <h3 id="stat-power">0.00 <small>Monet/min</small></h3>
+                    </div>
+                </div>
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">💳</div>
+                    <div class="stat-details">
+                        <span class="label">Aktywne Karty</span>
+                        <h3 id="stat-active-cards">0 <small>/ 0</small></h3>
+                    </div>
+                </div>
+                <div class="stat-card glass-card highlight">
+                    <div class="stat-icon">🌐</div>
+                    <div class="stat-details">
+                        <span class="label">Moc Całej Sieci</span>
+                        <h3 id="stat-network-power">0.00 <small>M/min</small></h3>
+                    </div>
+                </div>
+            </section>
+
+            <section class="charts-section">
+                <div class="chart-container glass-card">
+                    <div class="chart-header">
+                        <h3>Moc Sieci (ostatnie 2h)</h3>
+                    </div>
+                    <canvas id="networkChart"></canvas>
+                </div>
+                <div class="side-panel">
+                    <div class="top-miners glass-card">
+                        <h3>Top Górnicy (Najbogatsi)</h3>
+                        <ul id="top-miners-list" class="miner-list">
+                            <!-- JS Injection -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
